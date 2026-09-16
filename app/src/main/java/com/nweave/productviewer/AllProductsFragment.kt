@@ -19,7 +19,7 @@ class AllProductsFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        HttpUrlConnectionFetcher.fetchProducts { products ->       //Fetch From Internet NOT DUMMY DATA
+        RetrofitFetcher.fetchProducts { products ->
             if (products != null) {
                 recyclerView.adapter = ProductAdapter(products)
             } else {
