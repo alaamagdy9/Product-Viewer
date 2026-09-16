@@ -9,7 +9,7 @@ import java.net.URI
 
 object HttpUrlConnectionFetcher {
 
-    private const val PRODUCTS_URL = "https://dummyjson.com/products"
+    private const val PRODUCTS_URL ="https://test.nweave.com/featured.txt"
     private const val TAG = "HttpUrlConnection"
 
     fun fetchProducts(onResult: (List<Product>?) -> Unit) {
@@ -20,7 +20,7 @@ object HttpUrlConnectionFetcher {
                 connection = URI(PRODUCTS_URL).toURL().openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 val json = connection.inputStream.bufferedReader().use { it.readText() }
-                products = Gson().fromJson(json, ProductsResponse::class.java).products
+                products = Gson().fromJson(json, Array<FeaturedItem>::class.java).map { it.product }
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to fetch products", e)
             } finally {
