@@ -4,5 +4,6 @@
     <string name="app_name">Product Viewer</string>
     <string name="open_drawer">Open navigation drawer</string>
     <string name="close_drawer">Close navigation drawer</string>
+    <string name="price_format">$ %.2f</string>
 
 </resources>
