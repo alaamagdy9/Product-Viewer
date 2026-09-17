@@ -19,7 +19,7 @@ class AllProductsFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        RetrofitFetcher.fetchProducts { products ->
+        ProductRepository.fetchProducts(requireContext()) { products ->
             if (products != null) {
                 recyclerView.adapter = ProductAdapter(products)
             } else {

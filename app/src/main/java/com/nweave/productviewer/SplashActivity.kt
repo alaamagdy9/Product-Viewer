@@ -11,7 +11,17 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-       
+
+
+
+        // Every time the app opens, flip between HttpURLConnection and Retrofit and save it
+
+        ProductRepository.switchFetchMethod(this)
+
+
+
+
+
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
