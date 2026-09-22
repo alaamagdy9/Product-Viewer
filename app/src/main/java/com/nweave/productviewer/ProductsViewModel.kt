@@ -1,21 +1,30 @@
 package com.nweave.productviewer
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ProductsViewModel (application: Application) : AndroidViewModel(application)  {
+// @HiltViewModel + @Inject constructor: Hilt creates the ViewModel and passes in ProductRepository.
+
+@HiltViewModel
+class ProductsViewModel @Inject constructor(
+    private val repository: ProductRepository
+) : ViewModel() {
+
     private val _state = MutableLiveData<ProductsState>()
     val state: LiveData<ProductsState> = _state
 
-    //work only once
+    // Runs once
     init {
         loadProducts()
     }
+
+
     fun loadProducts() {
         _state.value = ProductsState.Loading
-        ProductRepository.fetchProducts(getApplication<Application>()) { products ->
-            // Both fetchers call back on the main thread, so the state can be set directly.
+        repository.fetchProducts { products ->
             _state.value = if (products != null) ProductsState.Success(products) else ProductsState.Error
         }
     }
