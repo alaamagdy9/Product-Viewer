@@ -1,6 +1,11 @@
 plugins {
-    alias(libs.plugins.android.application)
-}
+
+
+        alias(libs.plugins.android.application)
+        alias(libs.plugins.ksp)
+        alias(libs.plugins.hilt)
+    }
+
 
 android {
     namespace = "com.nweave.productviewer"
@@ -47,4 +52,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }
