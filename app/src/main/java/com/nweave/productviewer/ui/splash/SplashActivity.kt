@@ -14,7 +14,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
-    // Hilt fills this in (with the single ProductRepository) during super.onCreate().
+    // Hilt fills this in (with the fetchstorage) during super.onCreate().
     @Inject
     lateinit var fetchMethodStorage: FetchMethodStorage
 

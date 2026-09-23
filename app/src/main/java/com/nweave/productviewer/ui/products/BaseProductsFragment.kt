@@ -8,15 +8,15 @@ import android.widget.Button
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nweave.productviewer.R
 import com.nweave.productviewer.data.model.Product
+import androidx.fragment.app.activityViewModels
 
 abstract class BaseProductsFragment : Fragment()       //the cheapest and expensive will inherit
 {
-    private val viewModel: ProductsViewModel by viewModels()
+    private val viewModel: ProductsViewModel by activityViewModels() //activityviewmodel instead of viewmodel bec it means all fragments inside the activity so it doesnt load the products each time
     abstract fun sortProducts(products: List<Product>): List<Product>
     override fun onCreateView(
         inflater: LayoutInflater,
