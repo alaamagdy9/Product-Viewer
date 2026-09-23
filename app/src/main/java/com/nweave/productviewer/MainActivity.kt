@@ -7,8 +7,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject lateinit var repository: ProductRepository
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Product Viewer"
+        supportActionBar?.subtitle = "Using ${repository.getFetchMethod()}"
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navigationView: NavigationView = findViewById(R.id.navigationView)

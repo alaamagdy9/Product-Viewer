@@ -1,27 +1,9 @@
 package com.nweave.productviewer
+import dagger.hilt.android.AndroidEntryPoint
 
+// Most Cheapest: lowest price first.
+@AndroidEntryPoint
 
-
-
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
-class CheapestProductsFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(R.layout.fragment_products, container, false)
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = ProductAdapter(DummyData.products.sortedBy { it.price })
-        return view
-    }
+class CheapestProductsFragment : BaseProductsFragment() {
+    override fun sortProducts(products: List<Product>) = products.sortedBy { it.price }
 }
-

@@ -1,31 +1,27 @@
 package com.nweave.productviewer
 
-
-
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.nweave.productviewer.databinding.ItemProductBinding
 
 class ProductAdapter(private val products: List<Product>) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.productName)
-        val price: TextView = itemView.findViewById(R.id.productPrice)
-    }
+    // The ViewHolder keeps the binding (the generated ItemProductBinding) instead of each TextView.
+    class ProductViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_product, parent, false)
-        return ProductViewHolder(view)
+        // Inflate item_product.xml through its binding class.
+        val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ProductViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = products[position]
-        holder.name.text = product.name
-        holder.price.text = "$ ${product.price}"
+        // Give the product to the layout. The XML shows the name and the price by itself.
+        holder.binding.product = products[position]
+
+        holder.binding.executePendingBindings()
     }
 
     override fun getItemCount(): Int = products.size
