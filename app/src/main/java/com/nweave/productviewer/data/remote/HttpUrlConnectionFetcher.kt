@@ -1,13 +1,14 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.data.remote
 
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.google.gson.Gson
+import com.nweave.productviewer.data.model.FeaturedItem
+import com.nweave.productviewer.data.model.Product
 import java.net.HttpURLConnection
 import java.net.URI
 import javax.inject.Inject
-
 
 // @Inject constructor: Hilt creates this class and passes in the app's single Gson (from NetworkModule).
 class HttpUrlConnectionFetcher @Inject constructor(private val gson: Gson) {

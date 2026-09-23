@@ -7,7 +7,7 @@
     <data>
         <variable
             name="product"
-            type="com.nweave.productviewer.Product" />
+            type="com.nweave.productviewer.data.model.Product" />
     </data>
 
     <LinearLayout

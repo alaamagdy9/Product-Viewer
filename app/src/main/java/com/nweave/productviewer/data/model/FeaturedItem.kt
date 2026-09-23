@@ -1,4 +1,5 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.data.model
+
 import com.google.gson.annotations.SerializedName
 
 data class FeaturedItem(

@@ -1,4 +1,6 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.ui.products
+
+import com.nweave.productviewer.data.model.Product
 
 sealed class ProductsState {
     data object Loading : ProductsState()

@@ -1,4 +1,4 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -7,11 +7,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.nweave.productviewer.ui.products.AllProductsFragment
+import com.nweave.productviewer.ui.products.CheapestProductsFragment
+import com.nweave.productviewer.ui.products.ExpensiveProductsFragment
+import com.nweave.productviewer.R
+import com.nweave.productviewer.data.repo.ProductRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    @Inject lateinit var repository: ProductRepository
+    @Inject
+    lateinit var repository: ProductRepository
 
     private lateinit var drawerLayout: DrawerLayout
 

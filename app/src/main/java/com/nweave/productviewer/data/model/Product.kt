@@ -1,4 +1,4 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.data.model
 
 data class Product(
     // "name" and "price" have the same names in the JSON, so no @SerializedName is needed.

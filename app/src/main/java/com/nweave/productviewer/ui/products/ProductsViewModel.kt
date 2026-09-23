@@ -1,12 +1,11 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.ui.products
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nweave.productviewer.data.repo.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
-// @HiltViewModel + @Inject constructor: Hilt creates the ViewModel and passes in ProductRepository.
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(

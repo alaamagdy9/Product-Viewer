@@ -1,12 +1,13 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.data.repo
 
 import android.content.Context
 import androidx.core.content.edit
+import com.nweave.productviewer.data.model.Product
+import com.nweave.productviewer.data.remote.HttpUrlConnectionFetcher
+import com.nweave.productviewer.data.remote.RetrofitFetcher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
-
-
 
 @Singleton
 class ProductRepository @Inject constructor(

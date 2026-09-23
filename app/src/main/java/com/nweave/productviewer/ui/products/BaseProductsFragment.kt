@@ -1,4 +1,5 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.ui.products
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nweave.productviewer.R
+import com.nweave.productviewer.data.model.Product
 
 abstract class BaseProductsFragment : Fragment()       //the cheapest and expensive will inherit
 {
@@ -45,5 +48,3 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
         }
     }
 }
-
-

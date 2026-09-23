@@ -1,10 +1,12 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.data.remote
 
 import android.util.Log
-import javax.inject.Inject
+import com.nweave.productviewer.data.model.FeaturedItem
+import com.nweave.productviewer.data.model.Product
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
 // Fetches the products with Retrofit.
 // @Inject constructor: Hilt passes in ProductsApi, which NetworkModule builds once,

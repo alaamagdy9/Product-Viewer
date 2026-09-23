@@ -1,8 +1,9 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.ui.products
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nweave.productviewer.data.model.Product
 import com.nweave.productviewer.databinding.ItemProductBinding
 
 class ProductAdapter(private val products: List<Product>) :

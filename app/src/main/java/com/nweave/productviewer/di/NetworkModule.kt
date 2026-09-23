@@ -1,12 +1,14 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.di
+
 import com.google.gson.Gson
+import com.nweave.productviewer.data.remote.ProductsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 // The "recipes" Hilt uses to create objects from libraries (Gson and Retrofit),
 // @InstallIn(SingletonComponent::class): these objects live as long as the app.
