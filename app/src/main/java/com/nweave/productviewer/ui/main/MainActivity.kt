@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Product Viewer"
-        supportActionBar?.subtitle = "Using ${repository.getFetchMethod()}"
+        supportActionBar?.title = getString(R.string.app_name)
+        supportActionBar?.subtitle = getString(R.string.using_method, repository.getFetchMethod())
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navigationView: NavigationView = findViewById(R.id.navigationView)
