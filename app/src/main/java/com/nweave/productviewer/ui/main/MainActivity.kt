@@ -11,14 +11,13 @@ import com.nweave.productviewer.ui.products.AllProductsFragment
 import com.nweave.productviewer.ui.products.CheapestProductsFragment
 import com.nweave.productviewer.ui.products.ExpensiveProductsFragment
 import com.nweave.productviewer.R
-import com.nweave.productviewer.data.repo.ProductRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
+import com.nweave.productviewer.data.local.FetchMethodStorage
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject
-    lateinit var repository: ProductRepository
+    lateinit var fetchMethodStorage: FetchMethodStorage
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.app_name)
-        supportActionBar?.subtitle = getString(R.string.using_method, repository.getFetchMethod())
+        getString(R.string.using_method, fetchMethodStorage.getFetchMethod())
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navigationView: NavigationView = findViewById(R.id.navigationView)
