@@ -11,5 +11,6 @@
     <string name="nav_all_products">All Products</string>
     <string name="nav_cheapest_products">Most Cheapest Products</string>
     <string name="nav_expensive_products">Most Expensive Products</string>
+    <string name="product_image">Product image</string>
 
 </resources>
