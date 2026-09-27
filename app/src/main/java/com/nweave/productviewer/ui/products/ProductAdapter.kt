@@ -17,12 +17,15 @@ class ProductAdapter(private val products: List<Product>) :
         val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductViewHolder(binding)
     }
-
+// here's the position that i want you to insert the image in
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        // Give the product to the layout. The XML shows the name and the price by itself.
-        holder.binding.product = products[position]
+        val product = products[position]
 
+      // The XML shows the name, price and description by itself.
+        holder.binding.product = product
         holder.binding.executePendingBindings()
+
+        ProductImageTask.load(holder.binding.productImage, product.imageUrl)
     }
 
     override fun getItemCount(): Int = products.size
