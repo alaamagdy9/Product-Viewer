@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nweave.productviewer.R
 import com.nweave.productviewer.data.model.Product
@@ -31,7 +31,8 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
         val errorView: View = view.findViewById(R.id.errorView)
         val retryButton: Button = view.findViewById(R.id.retryButton)
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        // Two products per row, as the assignment asks for.
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         // "Try again" asks the ViewModel to load the products again.
         retryButton.setOnClickListener { viewModel.loadProducts() }
 

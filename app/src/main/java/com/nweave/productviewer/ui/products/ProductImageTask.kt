@@ -9,8 +9,8 @@ import java.lang.ref.WeakReference
 import java.net.HttpURLConnection
 import java.net.URI
 
-
-@Suppress("DEPRECATION")   //Async is not normally used now
+// AsyncTask is deprecated; used only because the assignment asks for it
+@Suppress("DEPRECATION")
 class ProductImageTask(imageView: ImageView, private val url: String) :
     AsyncTask<Void, Void, Bitmap?>() {
 
