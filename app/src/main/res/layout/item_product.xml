@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="com.nweave.productviewer.ui.common.HtmlUtils" />
+
         <variable
             name="product"
             type="com.nweave.productviewer.data.model.Product" />
@@ -59,7 +62,7 @@
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{product.description}"
+                android:text="@{HtmlUtils.fromHtml(product.description)}"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 

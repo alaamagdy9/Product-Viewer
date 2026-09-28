@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nweave.productviewer.data.model.Product
 import com.nweave.productviewer.databinding.ItemProductBinding
+import com.nweave.productviewer.ui.details.ProductDetailsActivity
 
 class ProductAdapter(private val products: List<Product>) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
@@ -24,6 +25,10 @@ class ProductAdapter(private val products: List<Product>) :
       // The XML shows the name, price and description by itself.
         holder.binding.product = product
         holder.binding.executePendingBindings()
+    // Tapping the cell opens the details screen for this product.
+    holder.binding.productCard.setOnClickListener { view ->
+        view.context.startActivity(ProductDetailsActivity.newIntent(view.context, product))
+    }
 
         ProductImageTask.load(holder.binding.productImage, product.imageUrl)
     }

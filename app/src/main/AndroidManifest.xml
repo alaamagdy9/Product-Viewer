@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:name=".ProductViewerApp"
         android:allowBackup="true"
@@ -27,6 +28,11 @@
             android:name=".ui.main.MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.details.ProductDetailsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.main.MainActivity" />
+
     </application>
 
 </manifest>
