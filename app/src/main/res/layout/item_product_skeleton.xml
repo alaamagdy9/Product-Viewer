@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- placeholder for the image -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@drawable/bg_skeleton" />
+
+    <!-- two placeholder lines for the name -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="14dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_skeleton" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_skeleton" />
+
+    <!-- two placeholder lines for the description -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_skeleton" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_skeleton" />
+
+    <!-- placeholder for the price -->
+    <View
+        android:layout_width="64dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_skeleton" />
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.data.local
 
 import android.content.Context
 import androidx.core.content.edit
@@ -6,14 +6,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-
-
+// Stores and reads which fetch method the app uses (HttpURLConnection or Retrofit).
+// This is the only class that touches SharedPreferences instead of product repo so now the product repo only gets the products
 @Singleton
-class ProductRepository @Inject constructor(
-    @ApplicationContext context: Context,
-    private val httpUrlConnectionFetcher: HttpUrlConnectionFetcher,
-    private val retrofitFetcher: RetrofitFetcher
-) {
+class FetchMethodStorage @Inject constructor(@ApplicationContext context: Context) {
 
     // The SharedPreferences file, opened once with the Context Hilt gave us.
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -28,15 +24,6 @@ class ProductRepository @Inject constructor(
     // Reads the saved method. If nothing is saved yet, it returns HttpURLConnection.
     fun getFetchMethod(): String =
         prefs.getString(KEY_FETCH_METHOD, METHOD_HTTP_URL_CONNECTION) ?: METHOD_HTTP_URL_CONNECTION
-
-    // Fetches the products with the saved method.
-    fun fetchProducts(onResult: (List<Product>?) -> Unit) {
-        if (getFetchMethod() == METHOD_RETROFIT) {
-            retrofitFetcher.fetchProducts(onResult)
-        } else {
-            httpUrlConnectionFetcher.fetchProducts(onResult)
-        }
-    }
 
     companion object {
         private const val PREFS_NAME = "product_viewer_prefs"

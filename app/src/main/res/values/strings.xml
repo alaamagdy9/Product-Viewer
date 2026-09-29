@@ -7,5 +7,10 @@
     <string name="price_format">$ %.2f</string>
     <string name="load_error">Failed to load the products</string>
     <string name="try_again">Try again</string>
+    <string name="using_method">Using %1$s</string>     <!-- The blank space depends on which method is used -->
+    <string name="nav_all_products">All Products</string>
+    <string name="nav_cheapest_products">Most Cheapest Products</string>
+    <string name="nav_expensive_products">Most Expensive Products</string>
+    <string name="product_image">Product image</string>
 
 </resources>

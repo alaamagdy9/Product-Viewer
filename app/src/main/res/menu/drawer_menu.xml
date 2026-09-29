@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_all"
-            android:title="All Products" />
+            android:title="@string/nav_all_products" />
         <item
             android:id="@+id/nav_cheapest"
-            android:title="Most Cheapest Products" />
+            android:title="@string/nav_cheapest_products" />
         <item
             android:id="@+id/nav_expensive"
-            android:title="Most Expensive Products" />
+            android:title="@string/nav_expensive_products" />
     </group>
 </menu>

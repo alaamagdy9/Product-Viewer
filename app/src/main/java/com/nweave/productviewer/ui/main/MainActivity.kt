@@ -1,4 +1,4 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -7,11 +7,17 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.nweave.productviewer.ui.products.AllProductsFragment
+import com.nweave.productviewer.ui.products.CheapestProductsFragment
+import com.nweave.productviewer.ui.products.ExpensiveProductsFragment
+import com.nweave.productviewer.R
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import com.nweave.productviewer.data.local.FetchMethodStorage
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    @Inject lateinit var repository: ProductRepository
+    @Inject
+    lateinit var fetchMethodStorage: FetchMethodStorage
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -21,8 +27,8 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Product Viewer"
-        supportActionBar?.subtitle = "Using ${repository.getFetchMethod()}"
+        supportActionBar?.title = getString(R.string.app_name)
+        supportActionBar?.subtitle =getString(R.string.using_method, fetchMethodStorage.getFetchMethod()) //instead of using ((USING))
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navigationView: NavigationView = findViewById(R.id.navigationView)

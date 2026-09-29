@@ -1,9 +1,11 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.ui.products
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nweave.productviewer.data.model.Product
 import com.nweave.productviewer.databinding.ItemProductBinding
+import com.nweave.productviewer.ui.details.ProductDetailsActivity
 
 class ProductAdapter(private val products: List<Product>) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
@@ -16,12 +18,19 @@ class ProductAdapter(private val products: List<Product>) :
         val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductViewHolder(binding)
     }
-
+// here's the position that i want you to insert the image in
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        // Give the product to the layout. The XML shows the name and the price by itself.
-        holder.binding.product = products[position]
+        val product = products[position]
 
+      // The XML shows the name, price and description by itself.
+        holder.binding.product = product
         holder.binding.executePendingBindings()
+    // Tapping the cell opens the details screen for this product.
+    holder.binding.productCard.setOnClickListener { view ->
+        view.context.startActivity(ProductDetailsActivity.newIntent(view.context, product))
+    }
+
+        ProductImageTask.load(holder.binding.productImage, product.imageUrl)
     }
 
     override fun getItemCount(): Int = products.size

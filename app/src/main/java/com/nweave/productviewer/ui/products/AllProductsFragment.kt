@@ -1,7 +1,8 @@
-package com.nweave.productviewer
+package com.nweave.productviewer.ui.products
 
-
+import com.nweave.productviewer.data.model.Product
 import dagger.hilt.android.AndroidEntryPoint
+
 @AndroidEntryPoint
 class AllProductsFragment : BaseProductsFragment() {
 
