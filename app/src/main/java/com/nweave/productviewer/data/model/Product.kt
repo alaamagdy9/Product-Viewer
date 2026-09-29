@@ -1,7 +1,12 @@
 package com.nweave.productviewer.data.model
-
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 data class Product(
-    // "name" and "price" have the same names in the JSON, so no @SerializedName is needed.
+
 
     val name: String,
-    val price: Double,)
+    val description: String,
+    val price: Double,
+    @SerializedName("image_url") val imageUrl: String
+) : Serializable  // to get converted into bytes
+
