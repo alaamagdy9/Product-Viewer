@@ -54,6 +54,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     implementation(libs.hilt.android)
     implementation(libs.shimmer)
+    implementation(libs.picasso)
+    implementation(libs.universal.image.loader)
     ksp(libs.hilt.compiler)
 
 }

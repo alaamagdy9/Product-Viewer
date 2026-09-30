@@ -7,9 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.IntentCompat
 import com.nweave.productviewer.data.model.Product
 import com.nweave.productviewer.databinding.ActivityProductDetailsBinding
-import com.nweave.productviewer.ui.products.ProductImageTask
-
+import com.nweave.productviewer.ui.image.ProductImageLoader
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+@AndroidEntryPoint
 class ProductDetailsActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var imageLoader: ProductImageLoader
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +36,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         // The XML shows the name, price and description by itself.
         binding.product = product
-        ProductImageTask.load(binding.productImage, product.imageUrl)
+        imageLoader.load(binding.productImage, product.imageUrl)
     }
 
     companion object {
@@ -42,3 +48,4 @@ class ProductDetailsActivity : AppCompatActivity() {
                 .putExtra(EXTRA_PRODUCT, product)
     }
 }
+

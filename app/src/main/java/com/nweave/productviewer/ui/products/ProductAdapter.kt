@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nweave.productviewer.data.model.Product
 import com.nweave.productviewer.databinding.ItemProductBinding
 import com.nweave.productviewer.ui.details.ProductDetailsActivity
+import com.nweave.productviewer.ui.image.ProductImageLoader
 
-class ProductAdapter(private val products: List<Product>) :
-    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(
+    private val products: List<Product>,
+    private val imageLoader: ProductImageLoader
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     // The ViewHolder keeps the binding (the generated ItemProductBinding) instead of each TextView.
     class ProductViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
@@ -30,7 +33,7 @@ class ProductAdapter(private val products: List<Product>) :
         view.context.startActivity(ProductDetailsActivity.newIntent(view.context, product))
     }
 
-        ProductImageTask.load(holder.binding.productImage, product.imageUrl)
+    imageLoader.load(holder.binding.productImage, product.imageUrl)
     }
 
     override fun getItemCount(): Int = products.size
