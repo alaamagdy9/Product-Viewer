@@ -35,6 +35,7 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         // "Try again" asks the ViewModel to load the products again.
         retryButton.setOnClickListener { viewModel.loadProducts() }
+        viewModel.loadProductsIfNeeded()
 
         // Show only the view that matches the state.
         viewModel.state.observe(viewLifecycleOwner) { state ->

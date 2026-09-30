@@ -26,6 +26,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         // The toolbar with the back arrow.
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.setNavigationOnClickListener { finish() }
 
         // The XML shows the name, price and description by itself.
         binding.product = product
