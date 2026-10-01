@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.ProductViewer" parent="Base.Theme.ProductViewer" />
+    <style name="ToolbarSubtitle" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">11sp</item>
+    </style>
 </resources>

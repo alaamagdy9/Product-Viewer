@@ -14,10 +14,13 @@ import com.nweave.productviewer.R
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import com.nweave.productviewer.data.local.FetchMethodStorage
+import com.nweave.productviewer.data.local.ImageLoaderStorage
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var fetchMethodStorage: FetchMethodStorage
+    @Inject
+    lateinit var imageLoaderStorage: ImageLoaderStorage
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -28,7 +31,12 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.app_name)
-        supportActionBar?.subtitle =getString(R.string.using_method, fetchMethodStorage.getFetchMethod()) //instead of using ((USING))
+        // Shows which fetch method and which image library this run is using.
+        supportActionBar?.subtitle = getString(
+            R.string.method_and_loader,
+            fetchMethodStorage.getFetchMethod(),
+            imageLoaderStorage.getImageLoader()
+        )
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navigationView: NavigationView = findViewById(R.id.navigationView)
