@@ -37,6 +37,7 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
         val errorView: View = view.findViewById(R.id.errorView)
         val retryButton: Button = view.findViewById(R.id.retryButton)
         val loadingLabel: TextView = view.findViewById(R.id.loadingLabel)
+        val staleBanner: TextView = view.findViewById(R.id.staleBanner)
 
         // Two products per row, as the assignment asks for.
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -54,6 +55,7 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
             if (loading) skeletonView.startShimmer() else skeletonView.stopShimmer()
             errorView.isVisible = state is ProductsState.Error
             recyclerView.isVisible = state is ProductsState.Success
+            staleBanner.isVisible = state is ProductsState.Success && state.isStale
 
             if (state is ProductsState.Success) {
                 // Each screen sorts the products its own way before showing them.

@@ -29,15 +29,17 @@ class ProductsViewModel @Inject constructor(
         _state.value = ProductsState.Loading(R.string.parsing_json_feed)
 
         repository.fetchAndStore { stored ->
-            if (!stored) {
-                _state.value = ProductsState.Error
-                return@fetchAndStore
-            }
-
             _state.value = ProductsState.Loading(R.string.reading_from_storage)
 
             repository.readStoredProducts { products ->
-                _state.value = ProductsState.Success(products)
+                // The feed may have failed, but an earlier run may have left
+                // products in the database. Only give up when there is
+                // nothing stored to show.
+                _state.value = if (products.isNotEmpty()) {
+                    ProductsState.Success(products, isStale = !stored)
+                } else {
+                    ProductsState.Error
+                }
             }
         }
     }
