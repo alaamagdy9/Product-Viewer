@@ -15,7 +15,7 @@ import androidx.fragment.app.activityViewModels
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.nweave.productviewer.ui.image.ProductImageLoader
 import javax.inject.Inject
-
+import android.widget.TextView
 
 
 abstract class BaseProductsFragment : Fragment()       //the cheapest and expensive will inherit
@@ -36,6 +36,7 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
         val skeletonView: ShimmerFrameLayout = view.findViewById(R.id.skeletonView)
         val errorView: View = view.findViewById(R.id.errorView)
         val retryButton: Button = view.findViewById(R.id.retryButton)
+        val loadingLabel: TextView = view.findViewById(R.id.loadingLabel)
 
         // Two products per row, as the assignment asks for.
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -48,6 +49,8 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
         viewModel.state.observe(viewLifecycleOwner) { state ->
             val loading = state is ProductsState.Loading
             skeletonView.isVisible = loading
+            loadingLabel.isVisible = loading
+            if (state is ProductsState.Loading) loadingLabel.setText(state.messageRes)
             if (loading) skeletonView.startShimmer() else skeletonView.stopShimmer()
             errorView.isVisible = state is ProductsState.Error
             recyclerView.isVisible = state is ProductsState.Success

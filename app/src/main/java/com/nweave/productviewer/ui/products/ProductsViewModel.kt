@@ -3,6 +3,7 @@ package com.nweave.productviewer.ui.products
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nweave.productviewer.R
 import com.nweave.productviewer.data.repo.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -22,12 +23,22 @@ class ProductsViewModel @Inject constructor(
         if (_state.value is ProductsState.Success) return
         loadProducts()
     }
-
-    // Always fetches. Used by the "Try again" button, which must reach the server.
+//parse the feed into the database,
+// then show what the database gives back. Used by "Try again" as well.
     fun loadProducts() {
-        _state.value = ProductsState.Loading
-        repository.fetchProducts { products ->
-            _state.value = if (products != null) ProductsState.Success(products) else ProductsState.Error
+        _state.value = ProductsState.Loading(R.string.parsing_json_feed)
+
+        repository.fetchAndStore { stored ->
+            if (!stored) {
+                _state.value = ProductsState.Error
+                return@fetchAndStore
+            }
+
+            _state.value = ProductsState.Loading(R.string.reading_from_storage)
+
+            repository.readStoredProducts { products ->
+                _state.value = ProductsState.Success(products)
+            }
         }
     }
 }

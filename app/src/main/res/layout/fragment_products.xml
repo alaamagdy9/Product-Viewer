@@ -15,6 +15,7 @@
         android:id="@+id/skeletonView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="48dp"
         android:visibility="gone"
         app:shimmer_auto_start="true">
 
@@ -85,6 +86,16 @@
             </LinearLayout>
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!-- Loading: which step the load is on, above the skeleton. -->
+    <TextView
+        android:id="@+id/loadingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <!-- Error: a message and a "Try again" button in the middle of the screen. -->
     <LinearLayout
