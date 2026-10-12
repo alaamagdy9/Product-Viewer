@@ -38,7 +38,7 @@ class ProductRepository @Inject constructor(
             } else {
                 // Writing to a database is disk work, so it is kept off the main thread.
                 Thread {
-                    productsDbHelper.replaceAll(products)
+                    productsDbHelper.saveAll(products)
                     mainHandler.post { onDone(true) }
                 }.start()
             }
