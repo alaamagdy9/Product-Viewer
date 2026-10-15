@@ -42,8 +42,8 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
         // Two products per row, as the assignment asks for.
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         // "Try again" asks the ViewModel to load the products again.
-        retryButton.setOnClickListener { viewModel.loadProducts() }
-        viewModel.loadProductsIfNeeded()
+        retryButton.setOnClickListener { viewModel.refresh() }
+
         // Hilt fills this in. It decides which image library to use.
 
         // Show only the view that matches the state.

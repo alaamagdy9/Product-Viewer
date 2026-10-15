@@ -1,54 +1,47 @@
 package com.nweave.productviewer.data.repo
 
-import android.os.Handler
-import android.os.Looper
+import androidx.room.withTransaction
 import com.nweave.productviewer.data.local.FetchMethodStorage
-import com.nweave.productviewer.data.local.ProductsDbHelper
+import com.nweave.productviewer.data.local.ProductDao
+import com.nweave.productviewer.data.local.ProductDatabase
+import com.nweave.productviewer.data.local.toEntity
+import com.nweave.productviewer.data.local.toProduct
 import com.nweave.productviewer.data.model.Product
 import com.nweave.productviewer.data.remote.HttpUrlConnectionFetcher
 import com.nweave.productviewer.data.remote.RetrofitFetcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
-
-
-// Gives the screens the products. It decides which fetcher to use and keeps the
-// parsed products in SQLite; the screens read them back from there.
 @Singleton
 class ProductRepository @Inject constructor(
     private val fetchMethodStorage: FetchMethodStorage,
     private val httpUrlConnectionFetcher: HttpUrlConnectionFetcher,
     private val retrofitFetcher: RetrofitFetcher,
-    private val productsDbHelper: ProductsDbHelper
+    private val database: ProductDatabase,
+    private val dao: ProductDao
 ) {
-    private val mainHandler = Handler(Looper.getMainLooper())
 
-    // Downloads and parses the feed, then stores it. Reports whether it worked,
-    // on the main thread.
-    fun fetchAndStore(onDone: (Boolean) -> Unit) {
-        val fetch: ((List<Product>?) -> Unit) -> Unit = { callback ->
-            if (fetchMethodStorage.getFetchMethod() == FetchMethodStorage.METHOD_RETROFIT) {
-                retrofitFetcher.fetchProducts(callback)
-            } else {
-                httpUrlConnectionFetcher.fetchProducts(callback)
+    // What the screen subscribes to. Room sends a new list after every write,
+    // so nothing has to ask for the products a second time.
+    fun getProducts(): Flow<List<Product>> =
+        dao.getProducts().map { entities -> entities.map { it.toProduct() } }
+
+    // Asks the feed for a fresher copy and stores it. Returns false when the
+    // feed could not be reached, so the screen can say the list is a saved one.
+    suspend fun refresh(): Boolean {
+        val products = when (fetchMethodStorage.getFetchMethod()) {
+            FetchMethodStorage.METHOD_RETROFIT -> retrofitFetcher.fetchProducts()
+            else -> httpUrlConnectionFetcher.fetchProducts()
+        } ?: return false
+
+        // One transaction, so a collector never sees the table half written.
+        database.withTransaction {
+            dao.upsertAll(products.map { it.toEntity() })
+            if (products.isNotEmpty()) {
+                dao.deleteNotIn(products.map { it.id })
             }
         }
-        fetch { products ->
-            if (products == null) {
-                onDone(false)
-            } else {
-                // Writing to a database is disk work, so it is kept off the main thread.
-                Thread {
-                    productsDbHelper.saveAll(products)
-                    mainHandler.post { onDone(true) }
-                }.start()
-            }
-        }
-    }
-    // Reads back whatever is stored. Also disk work, also off the main thread.
-    fun readStoredProducts(onResult: (List<Product>) -> Unit) {
-        Thread {
-            val products = productsDbHelper.readAll()
-            mainHandler.post { onResult(products) }
-        }.start()
+        return true
     }
 }
