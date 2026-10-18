@@ -13,10 +13,16 @@ import com.nweave.productviewer.R
 import com.nweave.productviewer.data.model.Product
 import androidx.fragment.app.activityViewModels
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.nweave.productviewer.ui.image.ProductImageLoader
+import javax.inject.Inject
+
+
 
 abstract class BaseProductsFragment : Fragment()       //the cheapest and expensive will inherit
 {
     private val viewModel: ProductsViewModel by activityViewModels() //activityviewmodel instead of viewmodel bec it means all fragments inside the activity so it doesnt load the products each time
+    @Inject
+    lateinit var imageLoader: ProductImageLoader
     abstract fun sortProducts(products: List<Product>): List<Product>
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +41,8 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         // "Try again" asks the ViewModel to load the products again.
         retryButton.setOnClickListener { viewModel.loadProducts() }
+        viewModel.loadProductsIfNeeded()
+        // Hilt fills this in. It decides which image library to use.
 
         // Show only the view that matches the state.
         viewModel.state.observe(viewLifecycleOwner) { state ->
@@ -46,7 +54,7 @@ abstract class BaseProductsFragment : Fragment()       //the cheapest and expens
 
             if (state is ProductsState.Success) {
                 // Each screen sorts the products its own way before showing them.
-                recyclerView.adapter = ProductAdapter(sortProducts(state.products))
+                recyclerView.adapter = ProductAdapter(sortProducts(state.products), imageLoader)
             }
         }
     }

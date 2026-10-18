@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/blue"
+            app:subtitleTextAppearance="@style/ToolbarSubtitle"
             app:titleTextColor="@color/white" />
 
         <FrameLayout
