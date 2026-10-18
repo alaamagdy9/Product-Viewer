@@ -1,3 +1,7 @@
+
+
+
+
 plugins {
 
 
@@ -57,5 +61,13 @@ dependencies {
     implementation(libs.picasso)
     implementation(libs.universal.image.loader)
     ksp(libs.hilt.compiler)
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
 
 }

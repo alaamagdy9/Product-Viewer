@@ -12,5 +12,8 @@
     <string name="nav_cheapest_products">Most Cheapest Products</string>
     <string name="nav_expensive_products">Most Expensive Products</string>
     <string name="product_image">Product image</string>
+    <string name="parsing_json_feed">Parsing JSON feed…</string>
+    <string name="reading_from_storage">Reading from internal storage…</string>
+    <string name="showing_saved_products">Showing saved products — could not refresh</string>
 
 </resources>

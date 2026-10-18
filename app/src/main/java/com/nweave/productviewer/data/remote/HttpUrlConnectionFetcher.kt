@@ -1,40 +1,31 @@
 package com.nweave.productviewer.data.remote
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import com.google.gson.Gson
 import com.nweave.productviewer.data.model.FeaturedItem
 import com.nweave.productviewer.data.model.Product
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URI
 import javax.inject.Inject
-
-// @Inject constructor: Hilt creates this class and passes in the app's single Gson (from NetworkModule).
 class HttpUrlConnectionFetcher @Inject constructor(private val gson: Gson) {
 
-
-    fun fetchProducts(onResult: (List<Product>?) -> Unit) {
-
-        Thread {
-            var products: List<Product>? = null
-            var connection: HttpURLConnection? = null
-            try {
-                connection = URI(PRODUCTS_URL).toURL().openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
-                val json = connection.inputStream.bufferedReader().use { it.readText() }
-                // Parsing with the Gson that Hilt gave us, instead of a new Gson() every time.
-                products = gson.fromJson(json, Array<FeaturedItem>::class.java).map { it.product }
-            } catch (e: Exception) {
-                Log.e(TAG, "Failed to fetch products", e)
-            } finally {
-                connection?.disconnect()
-            }
-
-            Handler(Looper.getMainLooper()).post { onResult(products) }
-        }.start()
+    suspend fun fetchProducts(): List<Product>? = withContext(Dispatchers.IO) {
+        var connection: HttpURLConnection? = null
+        try {
+            connection = URI(PRODUCTS_URL).toURL().openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            val json = connection.inputStream.bufferedReader().use { it.readText() }
+            // Parsing with the Gson that Hilt gave us, instead of a new Gson() every time.
+            gson.fromJson(json, Array<FeaturedItem>::class.java).map { it.product }
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to fetch products", e)
+            null
+        } finally {
+            connection?.disconnect()
+        }
     }
-
 
     companion object {
         private const val PRODUCTS_URL = "https://test.nweave.com/featured.txt"

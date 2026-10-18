@@ -16,6 +16,9 @@ ksp = "2.3.12"
 shimmer = "0.5.0"
 picasso = "2.8"
 universalImageLoader = "1.9.5"
+room = "2.8.5"
+coroutines = "1.10.2"
+lifecycle = "2.9.4"
 
 [libraries]
 
@@ -36,8 +39,14 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
 picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
 universal-image-loader = { group = "com.nostra13.universalimageloader", name = "universal-image-loader", version.ref = "universalImageLoader" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
